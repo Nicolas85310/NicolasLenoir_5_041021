@@ -1,13 +1,9 @@
-const url = require('/urlServer.js');
-console.log(url); 
-
-
 
 fillSection();
 
 // Récupération des articles de l'API
 async function getArticles() {
-    var articlesCatch = await fetch(url);
+    var articlesCatch = await fetch(UrlProducts);
     return await articlesCatch.json();
 }
 
