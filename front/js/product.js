@@ -1,3 +1,5 @@
+
+
 var str = window.location.href;
 var url = new URL(str);
 var idProduct = url.searchParams.get("id");
@@ -8,10 +10,15 @@ const colorPicked = document. querySelector("#colors");
 const quantityPicked = document.querySelector("#quantity");
 
 getArticle();
+get(API_ENDPOINT_PRODUCTS)
+.then(response => {console.log(response)});
 
-// Récupération des articles de l'API
+console.log(API_URL);
+console.log(API_ENDPOINT_PRODUCTS);
+
+// Récupération des articles de l'API "http://localhost:3000/api/products/" API_ENDPOINT_PRODUCTS + idProduct
 function getArticle() {
-    fetch("http://localhost:3000/api/products/" + idProduct)
+    fetch(API_URL + API_ENDPOINT_PRODUCTS + idProduct)
     .then((res) => {
         return res.json();
     })
@@ -63,9 +70,9 @@ function getPost(article){
 function addToCart(article) {
     const btn_envoyerPanier = document.querySelector("#addToCart");
 
-    //Ecouter le panier avec 2 conditions couleur non nulle et quantité entre 1 et 100
+    //verification du panier avec les 2 conditions: couleur non nulle et quantité entre 1 et 100
     btn_envoyerPanier.addEventListener("click", (event)=>{
-        if (quantityPicked.value > 0 && quantityPicked.value <=100 && quantityPicked.value != 0){
+        if (quantityPicked.value > 0 && quantityPicked.value <=100 && colorPicked.value != 0){
 
     //Recupération du choix de la couleur
     let choixCouleur = colorPicked.value;
