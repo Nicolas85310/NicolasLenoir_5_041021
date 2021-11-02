@@ -10,12 +10,8 @@ const colorPicked = document. querySelector("#colors");
 const quantityPicked = document.querySelector("#quantity");
 
 getArticle();
-get(API_ENDPOINT_PRODUCTS)
-.then(response => {console.log(response)});
 
-
-
-// Récupération des articles de l'API "http://localhost:3000/api/products/" API_ENDPOINT_PRODUCTS + idProduct
+// Récupération des articles de l'API "http://localhost:3000/api/products/" 
 function getArticle() {
     get(API_ENDPOINT_PRODUCTS + idProduct)
     .then((res) => {

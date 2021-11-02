@@ -1,3 +1,4 @@
+
 //Initialisation du local storage
 let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 console.table(produitLocalStorage);
@@ -27,17 +28,17 @@ for (let produit in produitLocalStorage){
     productImg.src = produitLocalStorage[produit].imgProduit;
     productImg.alt = produitLocalStorage[produit].altImgProduit;
     
-    // Insertion de l'élément "div"
+    // Insertion du contenu
     let productItemContent = document.createElement("div");
     productArticle.appendChild(productItemContent);
     productItemContent.className = "cart__item__content";
 
-    // Insertion de l'élément "div"
+    // Insertion du titre
     let productItemContentTitlePrice = document.createElement("div");
     productItemContent.appendChild(productItemContentTitlePrice);
     productItemContentTitlePrice.className = "cart__item__content__titlePrice";
     
-    // Insertion du titre h3
+    // Insertion du titre h2
     let productTitle = document.createElement("h2");
     productItemContentTitlePrice.appendChild(productTitle);
     productTitle.innerHTML = produitLocalStorage[produit].nomProduit;
@@ -58,7 +59,7 @@ for (let produit in produitLocalStorage){
     productItemContent.appendChild(productItemContentSettings);
     productItemContentSettings.className = "cart__item__content__settings";
 
-    // Insertion de l'élément "div"
+    // Insertion de la quantité "div"
     let productItemContentSettingsQuantity = document.createElement("div");
     productItemContentSettings.appendChild(productItemContentSettingsQuantity);
     productItemContentSettingsQuantity.className = "cart__item__content__settings__quantity";
@@ -78,7 +79,7 @@ for (let produit in produitLocalStorage){
     productQuantity.setAttribute("max", "100");
     productQuantity.setAttribute("name", "itemQuantity");
 
-    // Insertion de l'élément "div"
+    // Insertion de l'élément de supression "div"
     let productItemContentSettingsDelete = document.createElement("div");
     productItemContentSettings.appendChild(productItemContentSettingsDelete);
     productItemContentSettingsDelete.className = "cart__item__content__settings__delete";
@@ -180,7 +181,7 @@ function getForm() {
     let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
     let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
 
-    // Ecoute de la modification du prénom
+    // Ecoute de la modification du nom
     form.firstName.addEventListener('change', function() {
         validFirstName(this);
     });
@@ -190,17 +191,17 @@ function getForm() {
         validLastName(this);
     });
 
-    // Ecoute de la modification du prénom
+    // Ecoute de la modification de l'adresse
     form.address.addEventListener('change', function() {
         validAddress(this);
     });
 
-    // Ecoute de la modification du prénom
+    // Ecoute de la modification de la ville
     form.city.addEventListener('change', function() {
         validCity(this);
     });
 
-    // Ecoute de la modification du prénom
+    // Ecoute de la modification du @
     form.email.addEventListener('change', function() {
         validEmail(this);
     });
@@ -302,9 +303,11 @@ function postForm(){
                 "Content-Type": "application/json" 
             },
         };
-
-        fetch("http://localhost:3000/api/products/order", options)
+      
+        //fetch("http://localhost:3000/api/products/order", options)
+         post(API_ENDPOINT_PRODUCTS_ORDER , options) 
         .then((response) => response.json())
+        .then((response) => console.log(response))
         .then((data) => {
             console.log(data);
             localStorage.clear();
@@ -312,6 +315,7 @@ function postForm(){
 
             document.location.href = "confirmation.html";
         })
+        
         .catch((err) => {
             alert ("Problème avec fetch : " + err.message);
         });
