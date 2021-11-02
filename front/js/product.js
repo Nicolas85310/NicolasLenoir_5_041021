@@ -17,7 +17,7 @@ get(API_ENDPOINT_PRODUCTS)
 
 // Récupération des articles de l'API "http://localhost:3000/api/products/" API_ENDPOINT_PRODUCTS + idProduct
 function getArticle() {
-    fetch(API_ENDPOINT_PRODUCTS + idProduct)
+    get(API_ENDPOINT_PRODUCTS + idProduct)
     .then((res) => {
         return res.json();
     })
