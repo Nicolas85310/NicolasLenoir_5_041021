@@ -9,7 +9,7 @@ function get(endpoint) {
 }
 
 
-function post(endpoint, data) {
-    return fetch(makeUrl(endpoint), {});
+function post(endpoint, options) {
+    return fetch(makeUrl(endpoint), options);
 }
 

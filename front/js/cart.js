@@ -303,11 +303,10 @@ function postForm(){
                 "Content-Type": "application/json" 
             },
         };
-      
+        //.then((response) => console.log(response))
         //fetch("http://localhost:3000/api/products/order", options)
-         post(API_ENDPOINT_PRODUCTS_ORDER , options) 
+         post(API_ENDPOINT_PRODUCTS_ORDER, options) 
         .then((response) => response.json())
-        .then((response) => console.log(response))
         .then((data) => {
             console.log(data);
             localStorage.clear();
