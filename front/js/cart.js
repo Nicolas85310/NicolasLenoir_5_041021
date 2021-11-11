@@ -211,14 +211,15 @@ function getForm() {
 
 
     //validation des champs
-    let stateMsgError = 0;
-    const valid = function (input, RegExp, msgerror) {
+    let count = 0;
 
+    const valid = function (input, RegExp, msgerror) {
+        
         let ErrorMsg = input.nextElementSibling;
         let EmptyFieldsMsg = "Veuillez renseigner ce champs";
 
         if (RegExp.test(input.value) && (ErrorMsg.innerHTML == msgerror || ErrorMsg.innerHTML == EmptyFieldsMsg)) {
-            stateMsgError = 0;
+            count--;
             ErrorMsg.innerHTML = "";
         }
 
@@ -226,15 +227,19 @@ function getForm() {
             ErrorMsg.innerHTML = "";
         }
 
-        else {
-            ErrorMsg.innerHTML = msgerror;
-            stateMsgError = 1;
+        else if (ErrorMsg.innerHTML == msgerror || ErrorMsg.innerHTML == EmptyFieldsMsg){
+            count = count + 0;
         }
 
-
-        console.log(stateMsgError);
+        else {
+            ErrorMsg.innerHTML = msgerror;
+            count++;
+        }
+        
+        
+        console.log(count);
         if (!input.value) { ErrorMsg.innerHTML = EmptyFieldsMsg; }
-        if (stateMsgError == 1) {
+        if (count > 0) {
             order.disabled = true;
         } else { order.disabled = false; }
     };
