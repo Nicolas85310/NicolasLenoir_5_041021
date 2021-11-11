@@ -104,18 +104,24 @@ h2 {
 .cart__order__form__question input {
 	border-radius: 13px;
 	border: 0;
-	height: 26px;
+	height: 36px;
 	margin-top: 4px;
 }
+
 .cart__order__form__question input:focus {
-	outline: none;
+    outline: none;
 }
+
 .cart__order__form__question p {
 	margin: 0;
-	color: #fbbcbc;
-	font-size: 15px;
+	color: #C12819;
+	background-color: #F9D1CD;
+	border-radius: 5px;
+	text-shadow: 0.5em;
 	margin-left: 8px;
+	margin-top: 20px;
 }
+
 .cart__order__form__submit {
 	display: flex;
 	justify-content: center;
