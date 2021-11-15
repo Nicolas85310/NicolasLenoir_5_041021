@@ -172,7 +172,7 @@ function deleteProduct() {
 }
 deleteProduct();
 
-//Instauration formulaire avec regex
+//formulaire avec les règles regex
 function getForm() {
     // Ajout des Regex
     let form = document.querySelector(".cart__order__form");
@@ -182,13 +182,13 @@ function getForm() {
     let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
     let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
 
-    // Ecoute de la modification du nom
+    // Ecoute de la modification du prénom
     form.firstName.addEventListener('change', function () {
         valid(this, charRegExp, 'Votre prénom doit-être uniquement composé de lettres.')
     });
 
 
-    // Ecoute de la modification du prénom
+    // Ecoute de la modification du nom
     form.lastName.addEventListener('change', function () {
         valid(this, charRegExp, 'Votre nom doit-être uniquement composé de lettres.')
 
@@ -210,7 +210,7 @@ function getForm() {
     });
 
 
-    //validation des champs
+    //validation des champs (conditions permettant le click du submit)
     let count = 0;
 
     const valid = function (input, RegExp, msgerror) {
@@ -239,6 +239,9 @@ function getForm() {
         
         console.log(count);
         if (!input.value) { ErrorMsg.innerHTML = EmptyFieldsMsg; }
+        else if (!RegExp.test(input.value) && ErrorMsg.innerHTML == EmptyFieldsMsg){
+        ErrorMsg.innerHTML = msgerror;   
+        }
         if (count > 0) {
             order.disabled = true;
         } else { order.disabled = false; }
@@ -273,7 +276,7 @@ function postForm() {
             !inputCity.value ||
             !inputMail.value) {
 
-            //action à réaliser si les "required" dans les <input> ne fonctionnent pas ...
+            //action (à placer ici) si les "required" dans les <input> ne fonctionnent pas ...
 
         } else {
 
@@ -316,9 +319,7 @@ function postForm() {
                     document.location.href = "confirmation.html";
                 })
 
-                .catch((err) => {
-                    alert("Problème avec fetch : " + err.message);
-                });
+                
         }
     })
 }
