@@ -265,6 +265,8 @@ function postForm() {
 
     //Ecouter le panier
     btn_commander.addEventListener("click", (event) => {
+        event.preventDefault();
+        
 
         //Récupération des coordonnées du formulaire client
         let inputName = document.getElementById('firstName');

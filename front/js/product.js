@@ -59,20 +59,21 @@ function getPost(article){
         productColors.innerHTML = colors;
     }
     addToCart(article);
+    
 }
 
 //Gestion du panier
 function addToCart(article) {
     const btn_envoyerPanier = document.querySelector("#addToCart");
-
+    
     //verification du panier avec les 2 conditions: couleur non nulle et quantité entre 1 et 100
     btn_envoyerPanier.addEventListener("click", (event)=>{
-
         
+        event.preventDefault();
         if (!colorPicked.value) { alert("Veuillez choisir une couleur svp"); }
         else if (quantityPicked.value == 0) { alert("Veuillez choisir une quantité (minimum 1)"); }
         else if (quantityPicked.value > 0 && quantityPicked.value <=100 && colorPicked.value != 0){
-
+ 
     //Recupération du choix de la couleur
     let choixCouleur = colorPicked.value;
                 
@@ -101,7 +102,7 @@ Pour consulter votre panier, cliquez sur OK`)){
             window.location.href ="cart.html";
         }
     }
-
+    //event.preventDefault();
     //Importation dans le local storage
     //Si le panier comporte déjà au moins 1 article
     if (produitLocalStorage) {
