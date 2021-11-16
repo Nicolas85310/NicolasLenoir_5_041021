@@ -71,7 +71,7 @@ function addToCart(article) {
         
         if (!colorPicked.value) { alert("Veuillez choisir une couleur svp"); }
         else if (quantityPicked.value == 0) { alert("Veuillez choisir une quantité (minimum 1)"); }
-       else  if (quantityPicked.value > 0 && quantityPicked.value <=100 && colorPicked.value != 0){
+        else if (quantityPicked.value > 0 && quantityPicked.value <=100 && colorPicked.value != 0){
 
     //Recupération du choix de la couleur
     let choixCouleur = colorPicked.value;

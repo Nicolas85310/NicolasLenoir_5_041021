@@ -9,6 +9,8 @@ function getCart() {
     if (produitLocalStorage === null || produitLocalStorage == 0) {
         const emptyCart = `<p>Votre panier est vide</p>`;
         positionEmptyCart.innerHTML = emptyCart;
+        
+        
     } else {
         for (let produit in produitLocalStorage) {
             // Insertion de l'élément "article"
@@ -131,19 +133,23 @@ function modifyQtt() {
             event.preventDefault();
 
             //Selection de l'element à modifier en fonction de son id ET sa couleur
+            
             let quantityModif = produitLocalStorage[k].quantiteProduit;
             let qttModifValue = qttModif[k].valueAsNumber;
-
-            const resultFind = produitLocalStorage.find((el) => el.qttModifValue !== quantityModif);
-
+            
+            const resultFind = produitLocalStorage.find((el) => (el.qttModifValue !== quantityModif));
+            
             resultFind.quantiteProduit = qttModifValue;
             produitLocalStorage[k].quantiteProduit = resultFind.quantiteProduit;
-
+            
+            
             localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
-
-            // refresh rapide
+            
+            // refresh rapide pour que les calculs soient synchronisés
             location.reload();
+            
         })
+    
     }
 }
 modifyQtt();
@@ -268,18 +274,21 @@ function postForm() {
         let inputMail = document.getElementById('email');
 
 
-        //vérification des champs vides et blocage de la commande si c'est le cas suivant le navigteur
-        if (
-            !inputName.value ||
+        //vérification du panier et des champs vides:blocage de la commande si c'est le cas.
+        if (produitLocalStorage === null || produitLocalStorage == 0) {
+
+            if (window.confirm("Votre panier est vide,pour commander,vous devez choisir des produits sur la page Acceuil.Voulez-vous retourner à la page Acceuil ?")) {
+                window.location.href = "index.html";}else{window.location.href = "cart.html";}
+            
+            }else if
+            (!inputName.value ||
             !inputLastName.value ||
             !inputAdress.value ||
             !inputCity.value ||
-            !inputMail.value) {
+            !inputMail.value) { alert("Veuillez entrer vos coordonnées avant de commander"); }
 
-            //action (à placer ici) si les "required" dans les <input> ne fonctionnent pas ...
 
-        } else {
-
+        else {
 
             //Construction d'un array depuis le local storage
             let idProducts = [];
@@ -320,8 +329,10 @@ function postForm() {
                 })
 
                 
-        }
-    })
+        } 
+    }
+    )
+    
 }
 
 postForm();
