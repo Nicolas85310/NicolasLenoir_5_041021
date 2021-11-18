@@ -1,4 +1,4 @@
-
+//concaténation pour fabriquer l'url localhost de référence par rapport au DOM
 function makeUrl(endpoint) {
     return `${API_URL}/${endpoint}`
 };
