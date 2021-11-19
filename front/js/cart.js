@@ -355,7 +355,7 @@ function postForm() {
                 .then((data) => {
                     console.log(data);
                     localStorage.clear();//initialisation
-                    localStorage.setItem("orderId", data.orderId);//insertion du n° de commande dnas le local storage
+                    
                     //insertion du numéro de commande dans l'url de page de confirmation
                     document.location.href = "confirmation.html?orderNumber=" + data.orderId;
                 })
