@@ -86,7 +86,7 @@ function addToCart(article) {
 
             //Recupération du choix de la quantité
             let choixQuantite = quantityPicked.value;
-
+        
             //Récupération des options de l'article à ajouter au panier
             let optionsProduit = {
                 idProduit: idProduct,

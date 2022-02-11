@@ -199,30 +199,30 @@ function getForm() {
     let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
 
     //Application des règles regex au moment de la saisie
-
-    // Ecoute de la modification du prénom
+    //En ECOUTE:
+    //Modification du prénom
     form.firstName.addEventListener('change', function () {
         valid(this, charRegExp, 'Votre prénom doit-être uniquement composé de lettres.')
     });
 
 
-    // Ecoute de la modification du nom
+    //Modification du nom
     form.lastName.addEventListener('change', function () {
         valid(this, charRegExp, 'Votre nom doit-être uniquement composé de lettres.')
 
     });
 
-    // Ecoute de la modification de l'adresse
+    //Modification de l'adresse
     form.address.addEventListener('change', function () {
         valid(this, addressRegExp, 'Votre adresse doit être du style (numéro + rue/voie/impasse).')
     });
 
-    // Ecoute de la modification de la ville
+    //Modification de la ville
     form.city.addEventListener('change', function () {
         valid(this, charRegExp, 'Votre ville de résidence doit-être uniquement composée de lettres.')
     });
 
-    // Ecoute de la modification du @
+    //Modification de l'@
     form.email.addEventListener('change', function () {
         valid(this, emailRegExp, 'Votre adresse mail doit être du style (monadresse@fai.fr). ')
     });
@@ -230,7 +230,7 @@ function getForm() {
 
     
 
-    //initialisation du compteur count
+    //initialisation du compteur count(erreurs)
     let count = 0;
     //validation des champs (conditions permettant le click du submit)
     const valid = function (input, RegExp, msgerror) {
@@ -265,7 +265,7 @@ function getForm() {
             ErrorMsg.innerHTML = msgerror;
         }
         if (count > 0) {
-            order.disabled = true;//désactive le bouton commnder si présence de message d'erreur
+            order.disabled = true;//désactive le bouton commnder si présence d'au moins un message d'erreur
         } else { order.disabled = false; }
     };
 
@@ -281,7 +281,7 @@ function postForm() {
 
     //Ecouter le panier (promesse)
     btn_commander.addEventListener("click", (event) => {
-        //event.preventDefault();
+        event.preventDefault();
 
 
         //Récupération des coordonnées du formulaire client
@@ -292,7 +292,7 @@ function postForm() {
         let inputMail = document.getElementById('email');
 
 
-        //vérification si panier vide ou champs vide:blocage du bouton commander si c'est le cas.
+        //vérification si panier vide ou champs vide: blocage du bouton commander si c'est le cas.
         if (produitLocalStorage === null || produitLocalStorage == 0) {
             //choix de l'utilisateur à poursuivre ses achats ou rester sur la même page
             if (window.confirm("Votre panier est vide,pour commander,vous devez choisir des produits sur la page Acceuil.Voulez-vous retourner à la page Acceuil ?")) {
@@ -348,8 +348,9 @@ function postForm() {
                     "Content-Type": "application/json"
                 },
             };
-            //.then((response) => console.log(response))
-            //fetch("http://localhost:3000/api/products/order", options)
+            //.then((response) => console.log(response))       //vérification en cas d'erreur.
+            //fetch("http://localhost:3000/api/products/order", options)  //permet la vérification du chemin en dur.
+
             post(API_ENDPOINT_PRODUCTS_ORDER, options)//envoyer au localstorage les données "stringifiées"
                 .then((response) => response.json())
                 .then((data) => {
