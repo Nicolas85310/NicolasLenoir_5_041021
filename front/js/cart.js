@@ -114,7 +114,7 @@ function getTotals() {
         totalQtt += elemsQtt[i].valueAsNumber;
     }
 
-    let productTotalQuantity = document.getElementById('totalQuantity');
+  let productTotalQuantity = document.getElementById('totalQuantity');
     productTotalQuantity.innerHTML = totalQtt;
     console.log(totalQtt);
 
@@ -236,7 +236,7 @@ function getForm() {
     const valid = function (input, RegExp, msgerror) {
 
         let ErrorMsg = input.nextElementSibling;
-        let EmptyFieldsMsg = "Veuillez renseigner ce champs";
+        let EmptyFieldsMsg = "Veuillez ce champs";
 
         //fabrication d'un compteur de messages d'erreur avec count-- et count++
         if (RegExp.test(input.value) && (ErrorMsg.innerHTML == msgerror || ErrorMsg.innerHTML == EmptyFieldsMsg)) {
@@ -320,7 +320,7 @@ function postForm() {
 
         else {
 
-            //Construction d'un array depuis le local storage
+            //Construction d'un array depuis le localstorage
             let idProducts = [];
             for (let i = 0; i < produitLocalStorage.length; i++) {
                 idProducts.push(produitLocalStorage[i].idProduit);

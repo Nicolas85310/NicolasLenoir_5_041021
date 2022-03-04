@@ -16,7 +16,7 @@ getArticle();
 // Récupération des articles de l'API "http://localhost:3000/api/products/"
 function getArticle() {
     //utilisation d'une variable contenant l'adresse localhost avec l'id du produit
-    post(API_ENDPOINT_PRODUCTS + idProduct)
+    get(API_ENDPOINT_PRODUCTS + idProduct)
         .then((res) => {
             return res.json();
         })
@@ -42,15 +42,15 @@ function getPost(article) {
     productImg.src = article.imageUrl;
     productImg.alt = article.altTxt;
 
-    // Modification du titre "h1"
+    // Insertion du titre "h1"
     let productName = document.getElementById('title');
     productName.innerHTML = article.name;
 
-    // Modification du prix
+    // Insertion du prix
     let productPrice = document.getElementById('price');
     productPrice.innerHTML = article.price;
 
-    // Modification de la description
+    // Insertion de la description
     let productDescription = document.getElementById('description');
     productDescription.innerHTML = article.description;
 

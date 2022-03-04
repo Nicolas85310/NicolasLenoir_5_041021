@@ -18,7 +18,7 @@ function recupNumber() {
     var m = document.getElementById("orderId");
 
     //intégration de la chaine (ou noeud)
-    m.appendChild(document.createTextNode(text.split("++")[0]));
+    m.appendChild(document.createTextNode(text));
 
 }
 
