@@ -5,7 +5,7 @@ var str = window.location.href;
 var url = new URL(str);
 // ajout de searchParams (gestion des paramètres de requête d'URL)=> dans ce cas précis on ajoute un id à l'url
 var idProduct = url.searchParams.get("id");
-console.log(idProduct);//vérification
+//console.log(idProduct);//vérification
 let article = "";
 //création de variables pour manipuler les éléments de la page
 const colorPicked = document.querySelector("#colors");
@@ -24,7 +24,7 @@ function getArticle() {
         // Répartition des données de l'API dans le DOM en attente d'une promesse
         .then(async function (resultatAPI) {
             article = await resultatAPI;
-            console.table(article);
+            //console.table(article);
             if (article) {
                 getPost(article);
             }
@@ -56,7 +56,7 @@ function getPost(article) {
 
     // Insertion des options de couleurs
     for (let colors of article.colors) {
-        console.table(colors);//vérification
+        //console.table(colors);//vérification
         let productColors = document.createElement("option");
         document.querySelector("#colors").appendChild(productColors);
         productColors.value = colors;
@@ -93,7 +93,6 @@ function addToCart(article) {
                 couleurProduit: choixCouleur,
                 quantiteProduit: Number(choixQuantite),
                 nomProduit: article.name,
-                prixProduit: article.price,
                 descriptionProduit: article.description,
                 imgProduit: article.imageUrl,
                 altImgProduit: article.altTxt
@@ -116,18 +115,20 @@ Pour consulter votre panier, cliquez sur OK`)) {
                 const resultFind = produitLocalStorage.find(
                     (el) => el.idProduit === idProduct && el.couleurProduit === choixCouleur);
                 //Si le produit commandé est déjà dans le panier
-                if (resultFind) {
+                if (resultFind && (parseInt(optionsProduit.quantiteProduit) + parseInt(resultFind.quantiteProduit)) > 100)
+                 { alert("En choisissant cette quantité,vous allez dépasser les 100 canapés maximum!Merci de diminuer la quantité de votre commande"); }
+                else if (resultFind) {
                     let newQuantite =
                         parseInt(optionsProduit.quantiteProduit) + parseInt(resultFind.quantiteProduit);
                     resultFind.quantiteProduit = newQuantite;
                     localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
-                    console.table(produitLocalStorage);
+                    //console.table(produitLocalStorage);
                     popupConfirmation();
                     //Si le produit commandé n'est pas dans le panier
                 } else {
                     produitLocalStorage.push(optionsProduit);
                     localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
-                    console.table(produitLocalStorage);
+                    //console.table(produitLocalStorage);
                     popupConfirmation();
                 }
                 //Si le panier est vide
@@ -135,7 +136,7 @@ Pour consulter votre panier, cliquez sur OK`)) {
                 produitLocalStorage = [];
                 produitLocalStorage.push(optionsProduit);
                 localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
-                console.table(produitLocalStorage);
+                //console.table(produitLocalStorage);
                 popupConfirmation();
             }
         }

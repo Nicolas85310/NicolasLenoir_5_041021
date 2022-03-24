@@ -4,13 +4,42 @@
 //utilisation de JSON.parse pour retranscrire en chaîne de charactères ou en objet
 // (ici l'élément "produit") interprétable en JS.
 //=>intégration du même coup dans une variable
+
 let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
-console.table(produitLocalStorage);//affiche les produits dans la console
+//console.table(produitLocalStorage);//affiche les produits dans la console
 const positionEmptyCart = document.querySelector("#cart__items");//récupération du css
 
+//on récupère l'id produit du produit correspondant dans le panier
+for (let produit in produitLocalStorage) {
+var idProduct = produitLocalStorage[produit].idProduit;}
+
+//console.log(idProduct);
+getArticle(); 
+
+// Récupération des articles de l'API "http://localhost:3000/api/products/"
+function getArticle() {
+    //utilisation d'une variable contenant l'adresse localhost avec l'id du produit
+    get(API_ENDPOINT_PRODUCTS + idProduct)
+        .then((res) => {
+            return res.json();
+        })
+
+        // Répartition des données de l'API dans le DOM en attente d'une promesse
+        .then(async function (resultatAPI) {
+            article = await resultatAPI;
+            //console.table(article);
+            if (article) {
+                getCart(article);
+            }
+        })
+        //renvoi d'une erreur dans la console si la résolution à échoué
+        .catch((error) => {
+            console.log("Erreur de la requête API");
+        })
+}
 
 //récupération des articles du panier et affichage
-function getCart() {
+function getCart(article) {
     //si panier vide
     if (produitLocalStorage === null || produitLocalStorage == 0) {
         const emptyCart = `<p>Votre panier est vide</p>`;
@@ -25,7 +54,7 @@ function getCart() {
             productArticle.className = "cart__item";
             //Ajoute d'un nouvel attribut
             productArticle.setAttribute('data-id', produitLocalStorage[produit].idProduit);
-
+            
             // Insertion de l'élément "div"
             let productDivImg = document.createElement("div");
             productArticle.appendChild(productDivImg);//nouvelle position de "div"
@@ -57,11 +86,11 @@ function getCart() {
             productTitle.appendChild(productColor);
             productColor.innerHTML = produitLocalStorage[produit].couleurProduit;
             productColor.style.fontSize = "20px";
-
+            
             // Insertion du prix
             let productPrice = document.createElement("p");
             productItemContentTitlePrice.appendChild(productPrice);
-            productPrice.innerHTML = produitLocalStorage[produit].prixProduit + " €";
+            productPrice.innerHTML = article.price + " €";
 
             // Insertion de l'élément "div"
             let productItemContentSettings = document.createElement("div");
@@ -100,8 +129,9 @@ function getCart() {
             productSupprimer.innerHTML = "Supprimer";
         }
     }
-}
-getCart();
+
+
+
 //Récupération du total des totaux
 function getTotals() {
 
@@ -116,18 +146,18 @@ function getTotals() {
 
   let productTotalQuantity = document.getElementById('totalQuantity');
     productTotalQuantity.innerHTML = totalQtt;
-    console.log(totalQtt);
+    //console.log(totalQtt);
 
     // Récupération du prix total
     totalPrice = 0;
 
     for (var i = 0; i < myLength; ++i) {
-        totalPrice += (elemsQtt[i].valueAsNumber * produitLocalStorage[i].prixProduit);
+        totalPrice += (elemsQtt[i].valueAsNumber * article.price);
     }
 
     let productTotalPrice = document.getElementById('totalPrice');
     productTotalPrice.innerHTML = totalPrice;
-    console.log(totalPrice);
+    //console.log(totalPrice);
 }
 getTotals();
 
@@ -162,6 +192,7 @@ function modifyQtt() {
 
     }
 }
+
 modifyQtt();
 
 // Suppression d'un produit
@@ -186,7 +217,7 @@ function deleteProduct() {
         })
     }
 }
-deleteProduct();
+deleteProduct();}
 
 //récupération des données du formulaire
 function getForm() {
@@ -258,7 +289,7 @@ function getForm() {
         }
 
 
-        console.log(count);//controle le nombre de messages d'erreur
+        //console.log(count);//controle le nombre de messages d'erreur
 
         if (!input.value) { ErrorMsg.innerHTML = EmptyFieldsMsg; }
         else if (!RegExp.test(input.value) && ErrorMsg.innerHTML == EmptyFieldsMsg) {
@@ -325,7 +356,7 @@ function postForm() {
             for (let i = 0; i < produitLocalStorage.length; i++) {
                 idProducts.push(produitLocalStorage[i].idProduit);
             }
-            console.log(idProducts);//vérification
+            //console.log(idProducts);//vérification
 
             //intégration dans un objet: valeurs du formulaire et référence produit sélectionnée
             const order = {
@@ -354,7 +385,7 @@ function postForm() {
             post(API_ENDPOINT_PRODUCTS_ORDER, options)//envoyer au localstorage les données "stringifiées"
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
+                    //console.log(data);
                     localStorage.clear();//initialisation
                     
                     //insertion du numéro de commande dans l'url de page de confirmation

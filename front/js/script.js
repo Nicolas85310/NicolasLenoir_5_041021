@@ -13,7 +13,7 @@ async function fillSection() {
     var result = await getArticles()
         .then(function (resultatAPI) {
             const articles = resultatAPI;
-            console.table(articles);//vérification
+            //console.table(articles);//vérification
             for (let article in articles) {//affichage de l'ensemble des produits et leur caractéristique
 
                 // Insertion de l'élément "a"

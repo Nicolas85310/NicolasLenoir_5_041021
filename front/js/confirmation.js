@@ -12,7 +12,7 @@ function recupNumber() {
     var text = url.searchParams.get('orderNumber');
 
     //vérification
-    console.log(text);
+    //console.log(text);
 
     //selection de la balise span
     var m = document.getElementById("orderId");
